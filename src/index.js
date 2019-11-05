@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Chart from 'chart.js'
 import * as serviceWorker from './serviceWorker';
+
+Chart.defaults.global.defaultFontFamily = "Roboto, sans-serif";
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

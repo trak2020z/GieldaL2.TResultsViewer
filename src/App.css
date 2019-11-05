@@ -20,3 +20,25 @@
 .App-link {
   color: #09d3ac;
 }
+
+/* Chart wrappers */
+.chart-wrapper {
+  padding: 2%;
+  display: inline-block;
+}
+
+.main.chart-wrapper {
+  width: 96%;
+  height: 300px;
+}
+
+.sub.chart-wrapper {
+  width: 29%;
+  height: 250px;
+}
+
+@media (max-width: 700px) {
+  .sub.chart-wrapper {
+    width: 80%;
+  }
+}
