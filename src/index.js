@@ -5,8 +5,10 @@ import App from './App';
 import Chart from 'chart.js'
 import * as serviceWorker from './serviceWorker';
 
+/** Chart.js global vars */ 
 Chart.defaults.global.defaultFontFamily = "Roboto, sans-serif";
 
+/** Render React App element in DOM tree node */ 
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

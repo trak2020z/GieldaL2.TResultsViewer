@@ -1,18 +1,14 @@
 import React from 'react';
 import Chart from 'chart.js';
 
+// Class used to show data using line connecting data points
 class LineChart extends React.Component {
     constructor(props) {
       super(props);
       this.canvasRef = React.createRef();
     }
   
-    componentDidUpdate() {
-      this.myChart.data.labels = this.props.data.map(d => d.time);
-      this.myChart.data.datasets[0].data = this.props.data.map(d => d.value);
-      this.myChart.update();
-    }
-  
+    /** Sets up new bar Chart (using chart.js lib) on component mount*/
     componentDidMount() {
       this.myChart = new Chart(this.canvasRef.current, {
         type: 'line',
@@ -50,6 +46,13 @@ class LineChart extends React.Component {
           }]
         }
       });
+    }
+  
+    /** Refresh data and label on every component update */
+    componentDidUpdate() {
+      this.myChart.data.labels = this.props.data.map(d => d.time);
+      this.myChart.data.datasets[0].data = this.props.data.map(d => d.value);
+      this.myChart.update();
     }
   
     render() {

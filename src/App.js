@@ -5,6 +5,7 @@ import BarChart from './charts/BarChart';
 import DoughnutChart from './charts/DoughnutChart';
 import { getData } from './common/helpers'
 
+/** Main application class */
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -14,6 +15,7 @@ class App extends React.Component {
     };
   }
 
+  /** Refresh data every 5sec */
   componentDidMount() {
     window.setInterval(() => {
       this.setState({
@@ -22,6 +24,7 @@ class App extends React.Component {
     }, 5000)
   }
 
+  /** Render 1 main and 3 sub wrappers with charts */ 
   render() {
     return (
       <div className="App">
