@@ -1,33 +1,43 @@
 import React from 'react';
 import './App.css';
-import LineChart from './charts/LineChart';
-import BarChart from './charts/BarChart';
-import DoughnutChart from './charts/DoughnutChart';
-import { getData } from './common/helpers'
+//import LineChart from './charts/LineChart';
+//import BarChart from './charts/BarChart';
+//import DoughnutChart from './charts/DoughnutChart';
+//import { getData } from './common/helpers'
+import DataService from './common/services/DataServices';
 
 /** Main application class */
 class App extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      data: getData()
+      data: null
     };
   }
 
   /** Refresh data every 5sec */
   componentDidMount() {
+    DataService.getChartData("").then((data) => {
+      console.log(data);
+      this.setState({ data : data })
+    });
+    /*
     window.setInterval(() => {
       this.setState({
         data: getData()
       })
-    }, 5000)
+    }, 5000)*/
   }
 
-  /** Render 1 main and 3 sub wrappers with charts */ 
+  /** Render 1 main and 3 sub wrappers with charts */
   render() {
+    if (this.state.data == null)
+      return <span> Data not available </span>
     return (
       <div className="App">
+        <span> Data loaded </span>
+        <span> {this.state.data} </span>
+        {/*
         <div className="main chart-wrapper">
           <LineChart
             data={this.state.data[0].data}
@@ -56,6 +66,7 @@ class App extends React.Component {
             colors={['#a8e0ff', '#8ee3f5', '#70cad1', '#3e517a', '#b08ea2', '#BBB6DF']}
           />
         </div>
+        */}
       </div>
     );
   }

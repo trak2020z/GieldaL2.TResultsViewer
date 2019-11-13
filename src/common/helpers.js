@@ -1,6 +1,6 @@
-/** Data generation */ 
+/** Data generation */
 
-/** Create random array of objects */ 
+/** Create random array of objects */
 export const getRandomArray = (numItems) => {
     let data = [];
     let names = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
