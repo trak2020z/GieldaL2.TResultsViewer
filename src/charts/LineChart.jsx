@@ -1,5 +1,7 @@
 import React from 'react';
 import Chart from 'chart.js';
+// eslint-disable-next-line
+import ChartDataLabels from 'chartjs-plugin-datalabels'
 
 /** Graphs a chart using connected points  
  * Available props:
@@ -13,6 +15,8 @@ class LineChart extends React.Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
+    Chart.defaults.global.defaultFontColor = 'white';
+    Chart.defaults.global.defaultFontFamily = "'Roboto', sans-serif";
   }
 
   /** Sets up new line Chart (using chart.js lib) on component mount using set props */
@@ -23,14 +27,14 @@ class LineChart extends React.Component {
         labels: this.props.data.map(d => d.testStartTime),
         datasets: [{
           label: this.props.title1,
-          backgroundColor: "#FF3333",
-          borderColor: "#FF3333",
+          backgroundColor: '#006064',
+          borderColor: '#006064',
           data: this.props.data.map(d => d.reqTime),
           fill: false
         }, {
           label: this.props.title2,
-          backgroundColor: "#33FF33",
-          borderColor: "#33FF33",
+          backgroundColor: '#00BCD4',
+          borderColor: '#00BCD4',
           data: this.props.data.map(d => d.backendTime),
           fill: false
         }]
@@ -40,7 +44,9 @@ class LineChart extends React.Component {
         responsive: true,
         title: {
           display: true,
-          text: 'Placeholder title'
+          fontSize: 20,
+          fontColor: 'white',
+          text: this.props.chartTitle
         },
         hover: {
           mode: 'nearest',
@@ -65,6 +71,27 @@ class LineChart extends React.Component {
               labelString: this.props.ylabel
             }
           }]
+        },
+        plugins:{
+          datalabels: {
+            anchor: 'center',
+            font: {
+              size: 10,
+              weight: 'bolder'
+            },
+            backgroundColor: function(context) {
+              return context.dataset.backgroundColor
+            },
+            borderRadius: 10,
+            color: 'white',
+            clamp: 'true',
+            display: 'auto'
+          },
+          generateLabels: function(myChart) {
+            myChart.legend.afterFit = function() {
+              this.height = this.height + 50;
+            }
+          },
         }
       }
     });
