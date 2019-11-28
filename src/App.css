@@ -8,53 +8,47 @@ ul.sidenav {
   margin: 0;
   padding: 0;
   padding-top: 10px;
-  width: 20%;
+  width: 200px;
   background-color: #555;
-  position: fixed;
+  position: absolute;
   height: 100%;
   overflow: auto;
 }
 
-ul.sidenav li a {
+ul.sidenav li{
   display: block;
   color: white;
-  padding: 16px 26px;
+  padding: 6px 10px;
   text-decoration: none;
-}
- 
-ul.sidenav li a.active {
-  background-color: #006064;
-  color: white;
-}
-
-ul.sidenav li a:hover:not(.active) {
-  background-color: #555;
-  color: white;
 }
 
 div.content {
-  margin-left: 20%;
+  margin-left: 200px;
   padding: 1px 16px;
-  height: 1000px;
+  height: auto;
 }
 
 @media screen and (max-width: 900px) {
   ul.sidenav {
     width: 100%;
-    height: auto;
+    height: 55px;
     position: relative;
   }
   
-  ul.sidenav li a {
+  ul.sidenav li {
     float: left;
-    padding: 15px;
+    padding: auto;
   }
   
   div.content {margin-left: 0;}
 }
 
 @media screen and (max-width: 400px) {
-  ul.sidenav li a {
+  ul.sidenav {
+    height: auto
+  }
+
+  ul.sidenav li {
     text-align: center;
     float: none;
   }
@@ -81,7 +75,7 @@ div.content {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #282c34;
   -webkit-transition: .2s;
   transition: .2s;
 }
@@ -107,9 +101,9 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(12px);
-  -ms-transform: translateX(12px);
-  transform: translateX(12px);
+  -webkit-transform: translateX(14px);
+  -ms-transform: translateX(14px);
+  transform: translateX(14px);
 }
 
 .slider.round {
@@ -130,11 +124,10 @@ input:checked + .slider:before {
   border: 2px solid #006064;
   border-radius: 10px;
   color: white;
-  padding: 10px 16px;
+  padding: 5px 18px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 14px;
   transition-duration: 0.3s;
 }
 
@@ -145,7 +138,7 @@ input:checked + .slider:before {
 }
 
 /** Raw data */
-#raw-data {
+#rawData {
   margin-top: 10px;
   width: 90%;
   display: none;
