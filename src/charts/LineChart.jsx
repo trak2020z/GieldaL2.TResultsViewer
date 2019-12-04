@@ -1,6 +1,6 @@
 import React from "react";
 import Chart from "chart.js";
-// eslint-disable-next-line
+//eslint-disable-next-line
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
 /** Graphs a chart using connected points
@@ -23,24 +23,46 @@ class LineChart extends React.Component {
 
   /** Sets up new line Chart (using chart.js lib) on component mount using set props */
   componentDidMount() {
-    this.myChart = new Chart(this.canvasRef.current, {
+    this.myLineChart = new Chart(this.canvasRef.current, {
       type: "line",
       data: {
-        labels: this.props.data.map(d => d.testStartTime),
+        labels: this.props.datasetLabels,
         datasets: [
           {
             label: this.props.title1,
             backgroundColor: "#006064",
             borderColor: "#006064",
-            data: this.props.data.map(d => d.reqTime),
-            fill: false
+            data: this.props.data1,
+            fill: false,
+            steppedLine: true,
+            showLine: false
           },
           {
             label: this.props.title2,
+            backgroundColor: "#640300",
+            borderColor: "#640300",
+            data: this.props.data2,
+            fill: false,
+            steppedLine: true,
+            showLine: false
+          },
+          {
+            label: this.props.title3,
             backgroundColor: "#00BCD4",
             borderColor: "#00BCD4",
-            data: this.props.data.map(d => d.backendTime),
-            fill: false
+            data: this.props.data3,
+            fill: false,
+            steppedLine: true,
+            showLine: false
+          },
+          {
+            label: this.props.title4,
+            backgroundColor: "#8F3014",
+            borderColor: "#8F3014",
+            data: this.props.data4,
+            fill: false,
+            steppedLine: true,
+            showLine: false
           }
         ]
       },
@@ -58,13 +80,21 @@ class LineChart extends React.Component {
           intersect: true
         },
         tooltips: {
-          mode: "index",
+          mode: "nearest",
           intersect: false
         },
         scales: {
           xAxes: [
             {
               display: true,
+              type: "time",
+              time: {
+                unit: "second",
+                displayFormats: {
+                  second: "hh:mm:ss"
+                }
+              },
+              distribution: "series",
               scaleLabel: {
                 display: true,
                 labelString: this.props.xlabel
@@ -86,7 +116,7 @@ class LineChart extends React.Component {
             anchor: "center",
             font: {
               size: 8,
-              weight: "bolder"
+              weight: "bold"
             },
             backgroundColor: function(context) {
               return context.dataset.backgroundColor;
@@ -95,6 +125,16 @@ class LineChart extends React.Component {
             color: this.props.textColor,
             clamp: "true",
             display: "auto"
+          },
+          zoom: {
+            pan: {
+              enabled: true,
+              mode: "x"
+            },
+            zoom: {
+              enabled: true,
+              mode: "x"
+            }
           }
         }
       }
@@ -104,15 +144,15 @@ class LineChart extends React.Component {
   /** Refresh chart properties on every component update */
   componentDidUpdate(prevProps) {
     // TODO: https://pl.reactjs.org/docs/react-component.html#componentdidupdate
-    this.myChart.data.labels = this.props.data.map(d => d.testStartTime);
-    this.myChart.data.datasets[0].data = this.props.data.map(d => d.reqTime);
-    this.myChart.data.datasets[1].data = this.props.data.map(
-      d => d.backendTime
-    );
+    this.myLineChart.data.labels = this.props.datasetLabels;
+    this.myLineChart.data.datasets[0].data = this.props.data1;
+    this.myLineChart.data.datasets[1].data = this.props.data2;
+    this.myLineChart.data.datasets[2].data = this.props.data3;
+    this.myLineChart.data.datasets[3].data = this.props.data4;
     if (this.props.textColor !== prevProps.textColor) {
-      this.myChart.options.title.fontColor = this.props.textColor;
+      this.myLineChart.options.title.fontColor = this.props.textColor;
     }
-    this.myChart.update();
+    this.myLineChart.update();
   }
 
   render() {

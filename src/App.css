@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-/** Sidenav/topnav */ 
+/** Sidenav/topnav */
 ul.sidenav {
   list-style-type: none;
   margin: 0;
@@ -10,12 +10,12 @@ ul.sidenav {
   padding-top: 10px;
   width: 200px;
   background-color: #555;
-  position: absolute;
+  position: fixed;
   height: 100%;
   overflow: auto;
 }
 
-ul.sidenav li{
+ul.sidenav li {
   display: block;
   color: white;
   padding: 6px 10px;
@@ -34,18 +34,20 @@ div.content {
     height: 55px;
     position: relative;
   }
-  
+
   ul.sidenav li {
     float: left;
     padding: auto;
   }
-  
-  div.content {margin-left: 0;}
+
+  div.content {
+    margin-left: 0;
+  }
 }
 
 @media screen and (max-width: 400px) {
   ul.sidenav {
-    height: auto
+    height: auto;
   }
 
   ul.sidenav li {
@@ -54,7 +56,7 @@ div.content {
   }
 }
 
-/** Dark mode toggle switch */ 
+/** Dark mode toggle switch */
 .switch {
   position: relative;
   display: inline-block;
@@ -62,7 +64,7 @@ div.content {
   height: 20px;
 }
 
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -76,8 +78,8 @@ div.content {
   right: 0;
   bottom: 0;
   background-color: #282c34;
-  -webkit-transition: .2s;
-  transition: .2s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 .slider:before {
@@ -88,8 +90,8 @@ div.content {
   left: 4px;
   bottom: 4px;
   background-color: white;
-  -webkit-transition: .2s;
-  transition: .2s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 input:checked + .slider {
@@ -97,7 +99,7 @@ input:checked + .slider {
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #2196f3;
 }
 
 input:checked + .slider:before {
@@ -134,18 +136,20 @@ input:checked + .slider:before {
 #display-button:hover {
   background-color: #006064;
   color: white;
-  box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 /** Raw data */
 #rawData {
   margin-top: 10px;
   width: 90%;
+  height: 500px;
+  font-size: 12px;
   display: none;
   overflow-y: auto;
   margin-left: auto;
   margin-right: auto;
-  border-left: 5px solid #00838F;
+  border-left: 5px solid #00838f;
   background-color: #006064;
   color: white;
 }

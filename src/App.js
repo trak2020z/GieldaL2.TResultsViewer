@@ -1,8 +1,10 @@
 import React from "react";
 import "./App.css";
 import LineChart from "./charts/LineChart";
+//import BarChart from "./charts/BarChart";
 import Chart from "chart.js";
 import DataService from "./common/services/DataServices";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 /** Main application class */
 class App extends React.Component {
@@ -23,13 +25,14 @@ class App extends React.Component {
     DataService.getChartData("").then(data => {
       this.setState({ data: data });
     });
+    Chart.plugins.unregister(ChartDataLabels);
   }
 
   componentDidUpdate() {}
 
   /** Shows/hides JSON data using a button
    * Triggers on display-button click
-  */
+   */
   onShowDataClicked() {
     const x = this.showDataRef.current;
     if (x.style.display === "none") {
@@ -89,7 +92,9 @@ class App extends React.Component {
         <div className="content">
           <div className="main chart-wrapper">
             <LineChart
-              data={this.state.data.graphs}
+              datasetLabels={this.state.data.graphs.map(d => d.testStartTime)}
+              data1={this.state.data.graphs.map(d => d.reqTime)}
+              data2={this.state.data.graphs.map(d => d.backendTime)}
               chartTitle="Czas przetwarzania żądania"
               title1="Całkowity"
               title2="W kontrolerze backendu"
@@ -98,8 +103,45 @@ class App extends React.Component {
               textColor={graphTextColor}
             />
           </div>
+          <div className="main chart-wrapper">
+            <LineChart
+              datasetLabels={this.state.data.graphs.map(d => d.testStartTime)}
+              data1={this.state.data.graphs.map(d => d.dbSelectsTime)}
+              data2={this.state.data.graphs.map(d => d.dbUpdatesTime)}
+              data3={this.state.data.graphs.map(d => d.dbInsertsTime)}
+              data4={this.state.data.graphs.map(d => d.dbDeletesTime)}
+              chartTitle="Czasy przetwarzania żądania na bazie danych"
+              title1="Selects"
+              title2="Updates"
+              title3="Inserts"
+              title4="Deletes"
+              xlabel="Data"
+              ylabel="Czas trwania"
+              textColor={graphTextColor}
+            />
+          </div>
+          <div className="main chart-wrapper">
+            <LineChart
+              datasetLabels={this.state.data.graphs.map(d => d.testStartTime)}
+              data1={this.state.data.graphs.map(d => d.dbSelectsQuantity)}
+              data2={this.state.data.graphs.map(d => d.dbUpdatesQuantity)}
+              data3={this.state.data.graphs.map(d => d.dbInsertsQuantity)}
+              data4={this.state.data.graphs.map(d => d.dbDeletesQuantity)}
+              chartTitle="Ilość żądań"
+              title1="Selects"
+              title2="Updates"
+              title3="Inserts"
+              title4="Deletes"
+              xlabel="Data"
+              ylabel="Czas trwania"
+              textColor={graphTextColor}
+            />
+          </div>
+          <div>
+            <center>Ilość wpisów: {this.state.data.graphs.length}</center>
+          </div>
           <div id="rawData" ref={this.showDataRef}>
-            <span>{JSON.stringify(this.state.data)}</span>
+            <code>{JSON.stringify(this.state.data)}</code>
           </div>
         </div>
       </div>
