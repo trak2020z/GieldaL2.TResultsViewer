@@ -13,7 +13,7 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
  * - ylabel (Y axis label)
  * - textColor (Font color)
  */
-class LineChart extends React.Component {
+class Chart2 extends React.Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
@@ -24,7 +24,7 @@ class LineChart extends React.Component {
   /** Sets up new line Chart (using chart.js lib) on component mount using set props */
   componentDidMount() {
     this.myLineChart = new Chart(this.canvasRef.current, {
-      type: "line",
+      type: this.props.chartType,
       data: {
         labels: this.props.datasetLabels,
         datasets: [
@@ -42,24 +42,6 @@ class LineChart extends React.Component {
             backgroundColor: "#640300",
             borderColor: "#640300",
             data: this.props.data2,
-            fill: false,
-            steppedLine: true,
-            showLine: false
-          },
-          {
-            label: this.props.title3,
-            backgroundColor: "#00BCD4",
-            borderColor: "#00BCD4",
-            data: this.props.data3,
-            fill: false,
-            steppedLine: true,
-            showLine: false
-          },
-          {
-            label: this.props.title4,
-            backgroundColor: "#8F3014",
-            borderColor: "#8F3014",
-            data: this.props.data4,
             fill: false,
             steppedLine: true,
             showLine: false
@@ -147,8 +129,6 @@ class LineChart extends React.Component {
     this.myLineChart.data.labels = this.props.datasetLabels;
     this.myLineChart.data.datasets[0].data = this.props.data1;
     this.myLineChart.data.datasets[1].data = this.props.data2;
-    this.myLineChart.data.datasets[2].data = this.props.data3;
-    this.myLineChart.data.datasets[3].data = this.props.data4;
     if (this.props.textColor !== prevProps.textColor) {
       this.myLineChart.options.title.fontColor = this.props.textColor;
     }
@@ -160,4 +140,4 @@ class LineChart extends React.Component {
   }
 }
 
-export default LineChart;
+export default Chart2;

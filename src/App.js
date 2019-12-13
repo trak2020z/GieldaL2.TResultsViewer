@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
-import LineChart from "./charts/LineChart";
+import Chart2 from "./charts/Chart2"
+import Chart4 from "./charts/Chart4";
 //import BarChart from "./charts/BarChart";
 import Chart from "chart.js";
 import DataService from "./common/services/DataServices";
@@ -91,7 +92,8 @@ class App extends React.Component {
         </ul>
         <div className="content">
           <div className="main chart-wrapper">
-            <LineChart
+            <Chart2
+              chartType="line"
               datasetLabels={this.state.data.graphs.map(d => d.testStartTime)}
               data1={this.state.data.graphs.map(d => d.reqTime)}
               data2={this.state.data.graphs.map(d => d.backendTime)}
@@ -104,7 +106,8 @@ class App extends React.Component {
             />
           </div>
           <div className="main chart-wrapper">
-            <LineChart
+            <Chart4
+              chartType="line"
               datasetLabels={this.state.data.graphs.map(d => d.testStartTime)}
               data1={this.state.data.graphs.map(d => d.dbSelectsTime)}
               data2={this.state.data.graphs.map(d => d.dbUpdatesTime)}
@@ -121,7 +124,8 @@ class App extends React.Component {
             />
           </div>
           <div className="main chart-wrapper">
-            <LineChart
+            <Chart4
+              chartType="line"
               datasetLabels={this.state.data.graphs.map(d => d.testStartTime)}
               data1={this.state.data.graphs.map(d => d.dbSelectsQuantity)}
               data2={this.state.data.graphs.map(d => d.dbUpdatesQuantity)}
