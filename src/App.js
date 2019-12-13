@@ -1,10 +1,11 @@
 import React from "react";
 import "./App.css";
-import Chart2 from "./charts/Chart2"
-import Chart4 from "./charts/Chart4";
-//import BarChart from "./charts/BarChart";
-import Chart from "chart.js";
 import DataService from "./common/services/DataServices";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import Chart from "chart.js";
+import Chart2 from "./charts/Chart2";
+import Chart4 from "./charts/Chart4";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
 /** Main application class */
@@ -14,7 +15,9 @@ class App extends React.Component {
     this.state = {
       data: null,
       graphTextColor: "white",
-      isCheckboxChecked: false
+      isCheckboxChecked: false,
+      dateFrom: new Date("2019/10/01"),
+      dateTo: new Date()
     };
     this.onCheckboxChanged = this.onCheckboxChanged.bind(this);
     this.onShowDataClicked = this.onShowDataClicked.bind(this);
@@ -23,13 +26,17 @@ class App extends React.Component {
 
   /** This is called as soon as component mounts (insterted into DOM) */
   componentDidMount() {
-    DataService.getChartData("").then(data => {
+    DataService.getChartData(this.state.dateFrom, this.state.dateTo).then(data => {
       this.setState({ data: data });
     });
     Chart.plugins.unregister(ChartDataLabels);
   }
 
-  componentDidUpdate() {}
+  componentDidUpdate() {
+    DataService.getChartData(this.state.dateFrom, this.state.dateTo).then(data => {
+      this.setState({ data: data });
+    });
+  }
 
   /** Shows/hides JSON data using a button
    * Triggers on display-button click
@@ -88,6 +95,28 @@ class App extends React.Component {
             <span id="emoji" role="img" aria-label="sun">
               🌞
             </span>
+          </li>
+          <li>
+            Date From <br/>
+            <DatePicker 
+              selected={this.state.dateFrom}
+              onChange={date => this.setState({ dateFrom: date })}
+              selectsStart
+              startDate={this.state.dateFrom}
+              endDate={this.state.dateTo}
+              dateFormat="dd/MM/yyyy"
+            />
+          </li>
+          <li>
+            Date To <br/>
+            <DatePicker 
+              selected={this.state.dateTo}
+              onChange={date => this.setState({ dateTo: date })}
+              selectsEnd
+              startDate={this.state.dateFrom}
+              endDate={this.state.dateTo}
+              dateFormat="dd/MM/yyyy"
+            />
           </li>
         </ul>
         <div className="content">

@@ -12,7 +12,7 @@ ul.sidenav {
   background-color: #555;
   position: fixed;
   height: 100%;
-  overflow: auto;
+  overflow: visible;
 }
 
 ul.sidenav li {
