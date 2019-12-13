@@ -7,7 +7,7 @@ import Chart from "chart.js";
 import Chart2 from "./charts/Chart2";
 import Chart4 from "./charts/Chart4";
 import ChartDataLabels from "chartjs-plugin-datalabels";
-import {debounce} from "./common/helpers.js"
+import { debounce } from "./common/helpers.js";
 
 /** Main application class */
 class App extends React.Component {
@@ -33,19 +33,24 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    this.getDataFromAPI();
-    console.log(this.state.data);
+    if (
+      prevState.dateFrom !== this.state.dateFrom ||
+      prevState.dateTo !== this.state.dateTo
+    ) {
+      this.getDataFromAPI();
+    }
   }
 
   /** Loads data from API using DataService */
   getDataFromAPI() {
-    DataService.getChartData(this.state.dateFrom, this.state.dateTo).then(data => {
-      this.setState({ data: data });
-    });
+    DataService.getChartData(this.state.dateFrom, this.state.dateTo).then(
+      data => {
+        this.setState({ data: data });
+      }
+    );
   }
 
-  onFilterDataClicked() {
-  }
+  onFilterDataClicked() {}
 
   /** Shows/hides JSON data using a button
    * Triggers on display-button click
@@ -106,8 +111,8 @@ class App extends React.Component {
             </span>
           </li>
           <li>
-            Date From <br/>
-            <DatePicker 
+            Date From <br />
+            <DatePicker
               selected={this.state.dateFrom}
               onChange={date => this.setState({ dateFrom: date })}
               selectsStart
@@ -117,8 +122,8 @@ class App extends React.Component {
             />
           </li>
           <li>
-            Date To <br/>
-            <DatePicker 
+            Date To <br />
+            <DatePicker
               selected={this.state.dateTo}
               onChange={date => this.setState({ dateTo: date })}
               selectsEnd
