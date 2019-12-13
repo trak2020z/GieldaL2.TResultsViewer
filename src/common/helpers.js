@@ -3,14 +3,14 @@ import { timeout } from "q";
 
 export const debounce = (fn, delay) => {
   let timer = null;
-  return function (...args) {
+  return function(...args) {
     const context = this;
     if (timeout) clearTimeout(timer);
     timer = setTimeout(() => {
       fn.apply(context, args);
     }, delay);
   };
-}
+};
 
 export const getCleanData = () => {
   DataService.getChartData("").then(data => {

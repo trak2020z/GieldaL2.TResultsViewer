@@ -132,11 +132,6 @@ class App extends React.Component {
               dateFormat="dd/MM/yyyy"
             />
           </li>
-          <li>
-            <button id="filterDataButton" onClick={this.getDataFromAPI}>
-              Filtruj
-            </button>
-          </li>
         </ul>
         <div className="content">
           <div className="main chart-wrapper">
