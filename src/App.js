@@ -7,6 +7,7 @@ import Chart from "chart.js";
 import Chart2 from "./charts/Chart2";
 import Chart4 from "./charts/Chart4";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import {debounce} from "./common/helpers.js"
 
 /** Main application class */
 class App extends React.Component {
@@ -16,26 +17,34 @@ class App extends React.Component {
       data: null,
       graphTextColor: "white",
       isCheckboxChecked: false,
-      dateFrom: new Date("2019/10/01"),
+      dateFrom: new Date("2019/11/01"),
       dateTo: new Date()
     };
     this.onCheckboxChanged = this.onCheckboxChanged.bind(this);
     this.onShowDataClicked = this.onShowDataClicked.bind(this);
     this.showDataRef = React.createRef();
+    this.getDataFromAPI = debounce(this.getDataFromAPI, 1000);
   }
 
   /** This is called as soon as component mounts (insterted into DOM) */
   componentDidMount() {
-    DataService.getChartData(this.state.dateFrom, this.state.dateTo).then(data => {
-      this.setState({ data: data });
-    });
+    this.getDataFromAPI();
     Chart.plugins.unregister(ChartDataLabels);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
+    this.getDataFromAPI();
+    console.log(this.state.data);
+  }
+
+  /** Loads data from API using DataService */
+  getDataFromAPI() {
     DataService.getChartData(this.state.dateFrom, this.state.dateTo).then(data => {
       this.setState({ data: data });
     });
+  }
+
+  onFilterDataClicked() {
   }
 
   /** Shows/hides JSON data using a button
@@ -117,6 +126,11 @@ class App extends React.Component {
               endDate={this.state.dateTo}
               dateFormat="dd/MM/yyyy"
             />
+          </li>
+          <li>
+            <button id="filterDataButton" onClick={this.getDataFromAPI}>
+              Filtruj
+            </button>
           </li>
         </ul>
         <div className="content">

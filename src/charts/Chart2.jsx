@@ -89,7 +89,8 @@ class Chart2 extends React.Component {
               scaleLabel: {
                 display: true,
                 labelString: this.props.ylabel
-              }
+              },
+              stepSize: 1
             }
           ]
         },
