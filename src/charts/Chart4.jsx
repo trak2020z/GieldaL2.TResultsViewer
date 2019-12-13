@@ -13,7 +13,7 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
  * - ylabel (Y axis label)
  * - textColor (Font color)
  */
-class LineChart extends React.Component {
+class Chart4 extends React.Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
@@ -24,7 +24,7 @@ class LineChart extends React.Component {
   /** Sets up new line Chart (using chart.js lib) on component mount using set props */
   componentDidMount() {
     this.myLineChart = new Chart(this.canvasRef.current, {
-      type: "line",
+      type: this.props.chartType,
       data: {
         labels: this.props.datasetLabels,
         datasets: [
@@ -107,7 +107,8 @@ class LineChart extends React.Component {
               scaleLabel: {
                 display: true,
                 labelString: this.props.ylabel
-              }
+              },
+              stepSize: 1
             }
           ]
         },
@@ -160,4 +161,4 @@ class LineChart extends React.Component {
   }
 }
 
-export default LineChart;
+export default Chart4;

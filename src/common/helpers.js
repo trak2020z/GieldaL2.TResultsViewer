@@ -1,56 +1,34 @@
-/** Data generation */
+import DataService from "./services/DataServices";
+import { timeout } from "q";
 
-/** Create random array of objects */
-export const getRandomArray = (numItems) => {
-    let data = [];
-    let names = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    for (var i = 0; i < numItems; i++) {
-        data.push({
-            label: names[i],
-            value: Math.round(20 + 80 * Math.random())
-        });
+export const debounce = (fn, delay) => {
+  let timer = null;
+  return function(...args) {
+    const context = this;
+    if (timeout) clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(context, args);
+    }, delay);
+  };
+};
+
+export const getCleanData = () => {
+  DataService.getChartData("").then(data => {
+    let n = data.graphs.length;
+    if (n) {
+      let reqTime = data.graphs.map(d => d.reqTime);
+      let sum = reqTime.reduce(function(a, b) {
+        return a + b;
+      });
+      let avg = sum / n;
+      let innerPar = reqTime.map(x => {
+        return Math.pow(x - avg, 2);
+      });
+      let sum2 = innerPar.reduce((x, b) => {
+        return x + b;
+      });
+      let div = sum2 / n;
+      console.log(div);
     }
-    return data;
-}
-
-/** Create random array of objects (with date) */
-export const getRandomDateArray = (numItems) => {
-    let data = [];
-    let baseTime = new Date('2020-01-01T12:00:00').getTime();
-    let dayMs = 24 * 60 * 60 * 1000;
-    for (var i = 0; i < numItems; i++) {
-        data.push({
-            time: new Date(baseTime + i * dayMs),
-            value: Math.round(20 + 80 * Math.random())
-        });
-    }
-    return data;
-}
-
-/** Push random data into array */
-export const getData = () => {
-    let data = [];
-
-    data.push({
-        title: 'Czasy dostępu',
-        data: getRandomDateArray(150)
-    });
-
-    data.push({
-        title: 'Inne czasy',
-        data: getRandomArray(20)
-    });
-
-    data.push({
-        title: 'Jeszcze inne czasy',
-        data: getRandomArray(10)
-    });
-
-    data.push({
-        title: 'Może średnie czasy',
-        data: getRandomArray(6)
-    });
-
-    return data;
-}
-
+  });
+};

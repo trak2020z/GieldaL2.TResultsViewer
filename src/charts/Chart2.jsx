@@ -1,7 +1,9 @@
 import React from "react";
 import Chart from "chart.js";
+//eslint-disable-next-line
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
-/** Graphs a chart using vertical bars
+/** Graphs a chart using connected points
  * Available props:
  * - data (Datasets to plot)
  * - chartTitle (Chart title)
@@ -11,7 +13,7 @@ import Chart from "chart.js";
  * - ylabel (Y axis label)
  * - textColor (Font color)
  */
-class BarChart extends React.Component {
+class Chart2 extends React.Component {
   constructor(props) {
     super(props);
     this.canvasRef = React.createRef();
@@ -19,10 +21,10 @@ class BarChart extends React.Component {
     Chart.defaults.global.defaultFontFamily = "'Roboto', sans-serif";
   }
 
-  /** Sets up new bar Chart (using chart.js lib) on component mount*/
+  /** Sets up new line Chart (using chart.js lib) on component mount using set props */
   componentDidMount() {
-    this.myBarChart = new Chart(this.canvasRef.current, {
-      type: "bar",
+    this.myLineChart = new Chart(this.canvasRef.current, {
+      type: this.props.chartType,
       data: {
         labels: this.props.datasetLabels,
         datasets: [
@@ -30,25 +32,19 @@ class BarChart extends React.Component {
             label: this.props.title1,
             backgroundColor: "#006064",
             borderColor: "#006064",
-            data: this.props.data1
+            data: this.props.data1,
+            fill: false,
+            steppedLine: true,
+            showLine: false
           },
           {
             label: this.props.title2,
             backgroundColor: "#640300",
             borderColor: "#640300",
-            data: this.props.data2
-          },
-          {
-            label: this.props.title3,
-            backgroundColor: "#00BCD4",
-            borderColor: "#00BCD4",
-            data: this.props.data3
-          },
-          {
-            label: this.props.title4,
-            backgroundColor: "#8F3014",
-            borderColor: "#8F3014",
-            data: this.props.data4
+            data: this.props.data2,
+            fill: false,
+            steppedLine: true,
+            showLine: false
           }
         ]
       },
@@ -60,6 +56,14 @@ class BarChart extends React.Component {
           fontSize: 20,
           text: this.props.chartTitle,
           fontColor: this.props.textColor
+        },
+        hover: {
+          mode: "nearest",
+          intersect: true
+        },
+        tooltips: {
+          mode: "nearest",
+          intersect: false
         },
         scales: {
           xAxes: [
@@ -76,8 +80,7 @@ class BarChart extends React.Component {
               scaleLabel: {
                 display: true,
                 labelString: this.props.xlabel
-              },
-              stacked: true
+              }
             }
           ],
           yAxes: [
@@ -87,26 +90,50 @@ class BarChart extends React.Component {
                 display: true,
                 labelString: this.props.ylabel
               },
-              stacked: true
+              stepSize: 1
             }
           ]
+        },
+        plugins: {
+          datalabels: {
+            anchor: "center",
+            font: {
+              size: 8,
+              weight: "bold"
+            },
+            backgroundColor: function(context) {
+              return context.dataset.backgroundColor;
+            },
+            borderRadius: 10,
+            color: this.props.textColor,
+            clamp: "true",
+            display: "auto"
+          },
+          zoom: {
+            pan: {
+              enabled: true,
+              mode: "x"
+            },
+            zoom: {
+              enabled: true,
+              mode: "x"
+            }
+          }
         }
       }
     });
   }
 
-  /** Refresh data and label on every component update */
+  /** Refresh chart properties on every component update */
   componentDidUpdate(prevProps) {
     // TODO: https://pl.reactjs.org/docs/react-component.html#componentdidupdate
-    this.myBarChart.data.labels = this.props.datasetLabels;
-    this.myBarChart.data.datasets[0].data = this.props.data1;
-    this.myBarChart.data.datasets[1].data = this.props.data2;
-    this.myBarChart.data.datasets[2].data = this.props.data3;
-    this.myBarChart.data.datasets[3].data = this.props.data4;
+    this.myLineChart.data.labels = this.props.datasetLabels;
+    this.myLineChart.data.datasets[0].data = this.props.data1;
+    this.myLineChart.data.datasets[1].data = this.props.data2;
     if (this.props.textColor !== prevProps.textColor) {
-      this.myBarChart.options.title.fontColor = this.props.textColor;
+      this.myLineChart.options.title.fontColor = this.props.textColor;
     }
-    this.myBarChart.update();
+    this.myLineChart.update();
   }
 
   render() {
@@ -114,4 +141,4 @@ class BarChart extends React.Component {
   }
 }
 
-export default BarChart;
+export default Chart2;
