@@ -5,10 +5,17 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 
 /** Graphs a chart using connected points
  * Available props:
- * - data (Datasets to plot)
+ * - chartType ("line", "bar" etc.)
+ * - datasetLabels (x axis points)
+ * - data1 (y axis values of #1 dataset)
+ * - data2 (y axis values of #2 dataset)
+ * - data3 (y axis values of #3 dataset)
+ * - data4 (y axis values of #4 dataset)
  * - chartTitle (Chart title)
- * - title1 (1st dataset title)
- * - title2 (2nd dataset title)
+ * - title1 (#1 dataset title)
+ * - title2 (#2 dataset title)
+ * - title3 (#3 dataset title)
+ * - title4 (#4 dataset title)
  * - xlabel (X axis label)
  * - ylabel (Y axis label)
  * - textColor (Font color)

@@ -26,12 +26,17 @@ class App extends React.Component {
     this.getDataFromAPI = debounce(this.getDataFromAPI, 1000);
   }
 
-  /** This is called as soon as component mounts (insterted into DOM) */
+  /** This is called as soon as component mounts (is insterted into DOM) 
+   * It will call API using getDataFromAPI()
+   */
   componentDidMount() {
     this.getDataFromAPI();
     Chart.plugins.unregister(ChartDataLabels);
   }
 
+  /** This is called every time application updates its state or props
+   * If previous state differs from current, then it will call API again
+   */
   componentDidUpdate(prevProps, prevState) {
     if (
       prevState.dateFrom !== this.state.dateFrom ||
@@ -41,7 +46,10 @@ class App extends React.Component {
     }
   }
 
-  /** Loads data from API using DataService */
+  /** Loads data from API using DataService class function getChartData 
+   * Parameters of getChartData are passed from state of the App
+   * They can be changed using DatePicker components in navbar
+   */
   getDataFromAPI() {
     DataService.getChartData(this.state.dateFrom, this.state.dateTo).then(
       data => {
@@ -49,8 +57,6 @@ class App extends React.Component {
       }
     );
   }
-
-  onFilterDataClicked() {}
 
   /** Shows/hides JSON data using a button
    * Triggers on display-button click
@@ -111,7 +117,7 @@ class App extends React.Component {
             </span>
           </li>
           <li>
-            Date From <br />
+            Data min. <br />
             <DatePicker
               selected={this.state.dateFrom}
               onChange={date => this.setState({ dateFrom: date })}
@@ -122,7 +128,7 @@ class App extends React.Component {
             />
           </li>
           <li>
-            Date To <br />
+            Data max. <br />
             <DatePicker
               selected={this.state.dateTo}
               onChange={date => this.setState({ dateTo: date })}
@@ -156,7 +162,7 @@ class App extends React.Component {
               data2={this.state.data.graphs.map(d => d.dbUpdatesTime)}
               data3={this.state.data.graphs.map(d => d.dbInsertsTime)}
               data4={this.state.data.graphs.map(d => d.dbDeletesTime)}
-              chartTitle="Czasy przetwarzania żądania na bazie danych"
+              chartTitle="Czasy przetwarzania operacji na bazie danych"
               title1="Selects"
               title2="Updates"
               title3="Inserts"
@@ -174,7 +180,7 @@ class App extends React.Component {
               data2={this.state.data.graphs.map(d => d.dbUpdatesQuantity)}
               data3={this.state.data.graphs.map(d => d.dbInsertsQuantity)}
               data4={this.state.data.graphs.map(d => d.dbDeletesQuantity)}
-              chartTitle="Ilość żądań"
+              chartTitle="Ilość operacji na bazie danych"
               title1="Selects"
               title2="Updates"
               title3="Inserts"
