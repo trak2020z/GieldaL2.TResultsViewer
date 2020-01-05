@@ -26,7 +26,7 @@ class App extends React.Component {
     this.getDataFromAPI = debounce(this.getDataFromAPI, 1000);
   }
 
-  /** This is called as soon as component mounts (is insterted into DOM) 
+  /** This is called as soon as component mounts (is insterted into DOM)
    * It will call API using getDataFromAPI()
    */
   componentDidMount() {
@@ -46,7 +46,7 @@ class App extends React.Component {
     }
   }
 
-  /** Loads data from API using DataService class function getChartData 
+  /** Loads data from API using DataService class function getChartData
    * Parameters of getChartData are passed from state of the App
    * They can be changed using DatePicker components in navbar
    */
@@ -107,10 +107,18 @@ class App extends React.Component {
             </button>
           </li>
           <li>
-            <button id="delete-button" onClick={this.onDeleteDataClicked}>
+            <button
+              id="delete-button"
+              onClick={() => {
+                window.confirm(
+                  "Czy na pewno chcesz usunąć dane z bazy danych?"
+                ) && this.onDeleteDataClicked();
+              }}
+            >
               Usuń dane
             </button>
           </li>
+          <li></li>
           <li className="toggle">
             <span id="emoji" role="img" aria-label="moon">
               🌜
