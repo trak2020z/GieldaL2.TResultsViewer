@@ -26,7 +26,7 @@ class App extends React.Component {
     this.getDataFromAPI = debounce(this.getDataFromAPI, 1000);
   }
 
-  /** This is called as soon as component mounts (is insterted into DOM) 
+  /** This is called as soon as component mounts (is insterted into DOM)
    * It will call API using getDataFromAPI()
    */
   componentDidMount() {
@@ -46,7 +46,7 @@ class App extends React.Component {
     }
   }
 
-  /** Loads data from API using DataService class function getChartData 
+  /** Loads data from API using DataService class function getChartData
    * Parameters of getChartData are passed from state of the App
    * They can be changed using DatePicker components in navbar
    */
@@ -68,6 +68,13 @@ class App extends React.Component {
     } else {
       x.style.display = "none";
     }
+  }
+
+  /** Deletes all data in database
+   * Triggers on delete-button click
+   */
+  onDeleteDataClicked() {
+    DataService.deleteData();
   }
 
   /** Toggles between dark/light color themes
@@ -96,9 +103,22 @@ class App extends React.Component {
         <ul className="sidenav">
           <li>
             <button id="display-button" onClick={this.onShowDataClicked}>
-              Wyświetl dane z API
+              Wyświetl dane
             </button>
           </li>
+          <li>
+            <button
+              id="delete-button"
+              onClick={() => {
+                window.confirm(
+                  "Czy na pewno chcesz usunąć dane z bazy danych?"
+                ) && this.onDeleteDataClicked();
+              }}
+            >
+              Usuń dane
+            </button>
+          </li>
+          <li></li>
           <li className="toggle">
             <span id="emoji" role="img" aria-label="moon">
               🌜
@@ -121,10 +141,11 @@ class App extends React.Component {
             <DatePicker
               selected={this.state.dateFrom}
               onChange={date => this.setState({ dateFrom: date })}
+              showTimeInput
               selectsStart
               startDate={this.state.dateFrom}
               endDate={this.state.dateTo}
-              dateFormat="dd/MM/yyyy"
+              dateFormat="dd/MM/yyyy hh:mm aa"
             />
           </li>
           <li>
@@ -132,10 +153,11 @@ class App extends React.Component {
             <DatePicker
               selected={this.state.dateTo}
               onChange={date => this.setState({ dateTo: date })}
+              showTimeInput
               selectsEnd
               startDate={this.state.dateFrom}
               endDate={this.state.dateTo}
-              dateFormat="dd/MM/yyyy"
+              dateFormat="dd/MM/yyyy hh:mm aa"
             />
           </li>
         </ul>
