@@ -14,4 +14,14 @@ export default class DataService {
       })
       .then(r => r.data);
   }
+  static deleteData() {
+    return axios
+      .delete(route)
+      .then((response) => {
+        console.log(response);
+      }, (error) => {
+        console.log(error);
+      }
+    )
+  }
 }

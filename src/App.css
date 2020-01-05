@@ -111,7 +111,7 @@ input:checked + .slider:before {
   font-size: 20px;
 }
 
-/** Button */
+/** Display Button */
 #display-button {
   background-color: #282c34;
   border: 2px solid #006064;
@@ -126,6 +126,25 @@ input:checked + .slider:before {
 
 #display-button:hover {
   background-color: #006064;
+  color: white;
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+/** Delete Button */
+#delete-button {
+  background-color: #282c34;
+  border: 2px solid #e40000;
+  border-radius: 10px;
+  color: white;
+  padding: 5px 18px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition-duration: 0.3s;
+}
+
+#delete-button:hover {
+  background-color: #e40000;
   color: white;
   box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }

@@ -70,6 +70,13 @@ class App extends React.Component {
     }
   }
 
+  /** Deletes all data in database
+   * Triggers on delete-button click
+   */
+  onDeleteDataClicked() {
+    DataService.deleteData();
+  }
+
   /** Toggles between dark/light color themes
    * Triggers on switch button click
    */
@@ -96,7 +103,12 @@ class App extends React.Component {
         <ul className="sidenav">
           <li>
             <button id="display-button" onClick={this.onShowDataClicked}>
-              Wyświetl dane z API
+              Wyświetl dane
+            </button>
+          </li>
+          <li>
+            <button id="delete-button" onClick={this.onDeleteDataClicked}>
+              Usuń dane
             </button>
           </li>
           <li className="toggle">
@@ -121,10 +133,11 @@ class App extends React.Component {
             <DatePicker
               selected={this.state.dateFrom}
               onChange={date => this.setState({ dateFrom: date })}
+              showTimeInput
               selectsStart
               startDate={this.state.dateFrom}
               endDate={this.state.dateTo}
-              dateFormat="dd/MM/yyyy"
+              dateFormat="dd/MM/yyyy hh:mm aa"
             />
           </li>
           <li>
@@ -132,10 +145,11 @@ class App extends React.Component {
             <DatePicker
               selected={this.state.dateTo}
               onChange={date => this.setState({ dateTo: date })}
+              showTimeInput
               selectsEnd
               startDate={this.state.dateFrom}
               endDate={this.state.dateTo}
-              dateFormat="dd/MM/yyyy"
+              dateFormat="dd/MM/yyyy hh:mm aa"
             />
           </li>
         </ul>
