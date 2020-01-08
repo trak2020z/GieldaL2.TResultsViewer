@@ -130,6 +130,31 @@ input:checked + .slider:before {
   box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
+/** Download Button */
+#download-button {
+  background-color: #282c34;
+  border: 2px solid #006064;
+  border-radius: 10px;
+  color: white;
+  padding: 5px 18px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition-duration: 0.3s;
+}
+
+#download-button:hover {
+  background-color: #006064;
+  color: white;
+  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+#download-button-link {
+  color: white;
+  text-decoration-line: none;
+  cursor: default;
+}
+
 /** Delete Button */
 #delete-button {
   background-color: #282c34;
