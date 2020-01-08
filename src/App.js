@@ -8,6 +8,7 @@ import Chart2 from "./charts/Chart2";
 import Chart4 from "./charts/Chart4";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { debounce } from "./common/helpers.js";
+import { CSVLink } from "react-csv";
 
 /** Main application class */
 class App extends React.Component {
@@ -107,6 +108,18 @@ class App extends React.Component {
             </button>
           </li>
           <li>
+            <button id="download-button">
+              <CSVLink
+                data={this.state.data.graphs}
+                filename="dane.csv"
+                separator={";"}
+                id="download-button-link"
+              >
+                Pobierz dane CSV
+              </CSVLink>
+            </button>
+          </li>
+          <li>
             <button
               id="delete-button"
               onClick={() => {
@@ -115,26 +128,8 @@ class App extends React.Component {
                 ) && this.onDeleteDataClicked();
               }}
             >
-              Usuń dane
+              Usuń wszystkie dane
             </button>
-          </li>
-          <li></li>
-          <li className="toggle">
-            <span id="emoji" role="img" aria-label="moon">
-              🌜
-            </span>
-            <label className="switch">
-              <input
-                type="checkbox"
-                id="checkLightMode"
-                onChange={this.onCheckboxChanged}
-                value={this.state.isCheckboxChecked}
-              />
-              <span className="slider round"></span>
-            </label>
-            <span id="emoji" role="img" aria-label="sun">
-              🌞
-            </span>
           </li>
           <li>
             Data min. <br />
@@ -159,6 +154,23 @@ class App extends React.Component {
               endDate={this.state.dateTo}
               dateFormat="dd/MM/yyyy hh:mm aa"
             />
+          </li>
+          <li className="toggle">
+            <span id="emoji" role="img" aria-label="moon">
+              🌜
+            </span>
+            <label className="switch">
+              <input
+                type="checkbox"
+                id="checkLightMode"
+                onChange={this.onCheckboxChanged}
+                value={this.state.isCheckboxChecked}
+              />
+              <span className="slider round"></span>
+            </label>
+            <span id="emoji" role="img" aria-label="sun">
+              🌞
+            </span>
           </li>
         </ul>
         <div className="content">
