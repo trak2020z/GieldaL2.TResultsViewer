@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import Loader from "react-loader-spinner";
 import DataService from "./common/services/DataServices";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -18,7 +19,7 @@ class App extends React.Component {
       data: null,
       graphTextColor: "white",
       isCheckboxChecked: false,
-      dateFrom: new Date("2019/11/01"),
+      dateFrom: new Date("2020/01/01"),
       dateTo: new Date()
     };
     this.onCheckboxChanged = this.onCheckboxChanged.bind(this);
@@ -98,7 +99,18 @@ class App extends React.Component {
   /** Render to app window */
   render() {
     const { graphTextColor } = this.state;
-    if (this.state.data == null) return <center> Data not available </center>;
+    if (this.state.data == null)
+      return (
+        <div className="centered">
+          <Loader
+            type="Grid"
+            color="#989c94"
+            height={80}
+            width={80}
+            timeout={5000}
+          />
+        </div>
+      );
     return (
       <div className="App">
         <ul className="sidenav">
@@ -155,7 +167,9 @@ class App extends React.Component {
               dateFormat="dd/MM/yyyy hh:mm aa"
             />
           </li>
-          <li className="toggle">
+        </ul>
+        <ul className="sidenav bottomed">
+          <li>
             <span id="emoji" role="img" aria-label="moon">
               🌜
             </span>

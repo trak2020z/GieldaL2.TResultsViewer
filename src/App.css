@@ -3,6 +3,17 @@
   overflow-x: hidden;
 }
 
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bottomed {
+  top: 90%;
+}
+
 /** Sidenav/topnav */
 ul.sidenav {
   list-style-type: none;
