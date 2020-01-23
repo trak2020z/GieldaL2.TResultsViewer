@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const route = "https://gieldal2tresultsviewerapi.azurewebsites.net/api/graph";
+const route = "https://aplikacjeinternetowel2a.azurewebsites.net/api/graph";
 
 /** Class containing axios GET request to API with date range params */
 export default class DataService {
